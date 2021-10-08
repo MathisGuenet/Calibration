@@ -12,6 +12,11 @@ func6 = lambda x : math.sqrt(abs(x))
 func7 = lambda x : (x[0]**2)*x[1]+2
 func8 = lambda x : np.log(1 + (x[0]**2 + x[1]**2 - 1)**2)
 func9 = lambda x : 20 + math.e - 20 * math.exp(-0.2 * math.sqrt((x[0]**2 + x[1]**2) / 1)) - math.exp((math.cos(2 * math.pi * x[0]) + math.cos(2 * math.pi * x[1]) / 1))
+func10 = lambda x : x**2
+func11 = lambda x : math.sqrt(abs(x))
+func12 = lambda x : (x[0]**2) + (x[1]**2) +(x[2]**2)
+func13 = lambda x : -np.cos(np.pi*x[0])*np.sin(np.pi*x[1])*np.exp(-(x[0]**2 + x[1]**2)/10)
+Styblinsky_Tang = lambda x : 0.5*((x[0]**4 + x[1]**4) - 16*(x[0]**2+x[1]**2) + 5*(x[0]+x[1]))
 
 def BS_european_call(sigma):
     S = 100
@@ -23,8 +28,7 @@ def BS_european_call(sigma):
     call = (S * stats.norm.cdf(d1, 0.0, 1.0) - 
             K * np.exp(-r * T) * stats.norm.cdf(d2, 0.0, 1.0))
     market_price = 19.38 #Market price with 0.20 implied volatility
-    return call - market_price
-
+    return abs(call - market_price)
 
 def BS_asian_call(sigma):
     Nprix = 5
