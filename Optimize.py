@@ -205,10 +205,11 @@ if __name__ == "__main__":
     #print_2Dfunc(function.BS_european_call)
     #print(nelder_mead(x_start, function.BS_european_call)[0])
 
-    print(nelder_mead_global(1,function.BS_european_call,0,1))
+    print(nelder_mead_global(1,function.BS_european_call,0,10))
     print(nelder_mead_global(3,function.func12,-10,10))
     print(nelder_mead_global(2,function.func13,-50,50))
     print(nelder_mead_global(2,function.Styblinsky_Tang,-10,10))
+ 
 
 
     
