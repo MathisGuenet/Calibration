@@ -18,7 +18,14 @@ func12 = lambda x : (x[0]**2) + (x[1]**2) +(x[2]**2)
 func13 = lambda x : -np.cos(np.pi*x[0])*np.sin(np.pi*x[1])*np.exp(-(x[0]**2 + x[1]**2)/10)
 Styblinsky_Tang = lambda x : 0.5*((x[0]**4 + x[1]**4) - 16*(x[0]**2+x[1]**2) + 5*(x[0]+x[1]))
 
-def BS_european_call(sigma):
+def BS_european_call(sigma, S, K, r, T, market_price):
+    d1 = (np.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d2 = (np.log(S / K) + (r - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    call = (S * stats.norm.cdf(d1, 0.0, 1.0) - 
+            K * np.exp(-r * T) * stats.norm.cdf(d2, 0.0, 1.0))
+    return abs(call - market_price)
+
+def BS_european_call_price(sigma):
     S = 100
     K = 101
     r = 0.01
@@ -27,8 +34,8 @@ def BS_european_call(sigma):
     d2 = (np.log(S / K) + (r - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
     call = (S * stats.norm.cdf(d1, 0.0, 1.0) - 
             K * np.exp(-r * T) * stats.norm.cdf(d2, 0.0, 1.0))
-    market_price = 19.38 #Market price with 0.20 implied volatility
-    return abs(call - market_price)
+
+    return call
 
 def BS_asian_call(sigma):
     Nprix = 5
@@ -49,3 +56,13 @@ def BS_asian_call(sigma):
     price = np.mean(payoffs)
     #print(price)
     return price - 12.77
+
+if __name__ == "__main__":
+    dict_param = {
+        'T': 1,
+        'S' : 100,
+        'K' : 101,
+        'r' : 0.01,
+        'market_price' : 19.38
+    }
+    print(BS_european_call(0.20, **dict_param))
