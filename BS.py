@@ -57,6 +57,10 @@ def BS_gamma(S, K, T, r, sigma):
     d1 = (np.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
     return stats.norm.pdf(d1, 0.0, 1.0)/(S*sigma*np.sqrt(T))
 
+def BS_vega(S, K, T, r, sigma):
+    d1 = (np.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    return stats.norm.pdf(d1, 0.0, 1.0)*S*np.sqrt(T)
+
 def printPrices(all_prices, option_price, maturity):
     nb_of_prices = len(all_prices[0])
     indexes = np.linspace(0, maturity, nb_of_prices)
